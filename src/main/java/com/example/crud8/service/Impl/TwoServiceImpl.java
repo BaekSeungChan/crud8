@@ -1,11 +1,16 @@
 package com.example.crud8.service.Impl;
 
+import com.example.crud8.entity.One;
 import com.example.crud8.entity.Two;
+import com.example.crud8.payload.OneDto;
 import com.example.crud8.payload.TwoDto;
 import com.example.crud8.repository.TwoRepository;
 import com.example.crud8.service.TwoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TwoServiceImpl implements TwoService {
@@ -24,6 +29,20 @@ public class TwoServiceImpl implements TwoService {
         Two saveTwo = twoRepository.save(two);
 
         return modelMapper.map(saveTwo, TwoDto.class);
+    }
+
+    @Override
+    public List<TwoDto> getAllTwo(){
+        List<Two> twos = twoRepository.findAll();
+
+        return twos.stream().map((two) -> modelMapper.map(two, TwoDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public TwoDto getTwoById(long id){
+        Two two = twoRepository.findById(id).orElseThrow(() -> new RuntimeException("No id"));
+
+        return modelMapper.map(two, TwoDto.class);
     }
 
 }
