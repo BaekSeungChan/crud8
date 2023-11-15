@@ -35,4 +35,16 @@ public class OneCotroller {
         return ResponseEntity.ok(oneService.getOneById(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOneById(@PathVariable(name = "id") long id){
+        oneService.deleteOneById(id);
+        return ResponseEntity.ok("deleted One");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OneDto> updateOne(@PathVariable(name = "id")long id, @Valid @RequestBody OneDto oneDto){
+        OneDto oneResponse = oneService.updateOne(oneDto, id);
+        return new ResponseEntity<>(oneResponse, HttpStatus.OK);
+    }
+
 }

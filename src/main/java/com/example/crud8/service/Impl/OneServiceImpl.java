@@ -4,6 +4,7 @@ import com.example.crud8.entity.One;
 import com.example.crud8.payload.OneDto;
 import com.example.crud8.repository.OneRepository;
 import com.example.crud8.service.OneService;
+import io.micrometer.observation.annotation.Observed;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,23 @@ public class OneServiceImpl implements OneService {
         One one = oneRepository.findById(id).orElseThrow(() -> new RuntimeException("No id"));
 
         return modelMapper.map(one, OneDto.class);
+    }
+
+    @Override
+    public void deleteOneById(long id){
+        One one = oneRepository.findById(id).orElseThrow(() -> new RuntimeException("No id"));
+        oneRepository.delete(one);
+    }
+
+    @Override
+    public OneDto updateOne(OneDto oneDto, long id){
+        One one = oneRepository.findById(id).orElseThrow(() -> new RuntimeException("No id"));
+
+        one.setName(oneDto.getName());
+        one.setNumber(oneDto.getNumber());
+
+        One saveOne = oneRepository.save(one);
+
+        return modelMapper.map(saveOne, OneDto.class);
     }
 }

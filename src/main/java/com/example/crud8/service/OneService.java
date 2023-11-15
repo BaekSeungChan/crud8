@@ -11,4 +11,8 @@ public interface OneService {
     List<OneDto> getAllOne();
 
     OneDto getOneById(long id);
+
+    void deleteOneById(long id);
+
+    OneDto updateOne(OneDto oneDto, long id);
 }
