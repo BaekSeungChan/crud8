@@ -6,10 +6,9 @@ import com.example.crud8.service.OneService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/one")
@@ -24,6 +23,16 @@ public class OneCotroller {
     @PostMapping
     public ResponseEntity<OneDto> createOne(@Valid @RequestBody OneDto oneDto){
         return new ResponseEntity<>(oneService.createOne(oneDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<OneDto>> getAllOne(){
+        return new ResponseEntity<>(oneService.getAllOne(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OneDto> getOneById(@PathVariable(name = "id") long id){
+        return ResponseEntity.ok(oneService.getOneById(id));
     }
 
 }
