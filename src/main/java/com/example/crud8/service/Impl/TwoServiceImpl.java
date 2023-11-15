@@ -1,8 +1,6 @@
 package com.example.crud8.service.Impl;
 
-import com.example.crud8.entity.One;
 import com.example.crud8.entity.Two;
-import com.example.crud8.payload.OneDto;
 import com.example.crud8.payload.TwoDto;
 import com.example.crud8.repository.TwoRepository;
 import com.example.crud8.service.TwoService;
@@ -43,6 +41,24 @@ public class TwoServiceImpl implements TwoService {
         Two two = twoRepository.findById(id).orElseThrow(() -> new RuntimeException("No id"));
 
         return modelMapper.map(two, TwoDto.class);
+    }
+
+    @Override
+    public void deleteTwoById(long id){
+        Two two = twoRepository.findById(id).orElseThrow(() -> new RuntimeException("No id"));
+        twoRepository.delete(two);
+    }
+
+    @Override
+    public TwoDto updateTwo(TwoDto twoDto, long id){
+        Two two = twoRepository.findById(id).orElseThrow(() -> new RuntimeException("No id"));
+
+        two.setName(twoDto.getName());
+        two.setNumber(twoDto.getNumber());
+
+        Two saveTwo = twoRepository.save(two);
+
+        return modelMapper.map(saveTwo, TwoDto.class);
     }
 
 }

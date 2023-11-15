@@ -1,6 +1,6 @@
 package com.example.crud8.controller;
 
-import com.example.crud8.payload.OneDto;
+
 import com.example.crud8.payload.TwoDto;
 import com.example.crud8.service.TwoService;
 import jakarta.validation.Valid;
@@ -36,4 +36,15 @@ public class TwoController {
         return ResponseEntity.ok(twoService.getTwoById(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTwoById(@PathVariable(name = "id") long id){
+        twoService.deleteTwoById(id);
+        return ResponseEntity.ok("deleted Two");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TwoDto> updateTwo(@PathVariable(name = "id")long id, @Valid @RequestBody TwoDto twoDto){
+        TwoDto twoResponse = twoService.updateTwo(twoDto, id);
+        return new ResponseEntity<>(twoResponse, HttpStatus.OK);
+    }
 }
