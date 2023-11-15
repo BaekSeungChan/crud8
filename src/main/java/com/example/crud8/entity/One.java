@@ -23,4 +23,7 @@ public class One {
     @Column
     private String number;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "child_id")
+    private Two two;
 }

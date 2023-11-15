@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,4 +25,6 @@ public class Two {
     @Column
     private String number;
 
+    @OneToMany(mappedBy = "two", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<One> ones;
 }

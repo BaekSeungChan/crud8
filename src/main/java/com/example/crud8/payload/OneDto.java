@@ -13,4 +13,6 @@ public class OneDto {
     private String name;
 
     private String number = "10";
+
+    private Long oneId;
 }
